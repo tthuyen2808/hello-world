@@ -1,0 +1,259 @@
+<script>
+var arr = [1,0,5,10,-1];
+var ten = ["Bích", "Ngọc", "Lan", "hồng"];
+function sapxep()
+{
+	arr.sort(function (a,b) {return a- b});
+    document.write (arr);
+}
+
+function timMin(arr) 
+{
+	var len = arr.length;
+    var min = Infinity; //Gán số bé lớn nhất có thể
+    while (len--)
+    	{
+        	if(arr[len] < min)
+            	{
+                	min = arr[len];
+                }
+        }
+    return min;
+}
+
+function doiChu()
+{
+	var i,ln;
+    ln = ten.length;
+    for (i = 0; i < ln; i++) 
+    	{
+        var a = ten[i].toLowerCase();
+        var b = ten[i].toUpperCase();
+        	if(ten[i].charAt(0) == ten[i].charAt(0).toUpperCase()) 
+            	{
+                	a = ten[i].toLowerCase();
+                    document.write("<br>" + a);
+                } 
+            else
+                {
+                	b = ten[i].toLocaleUpperCase();
+                    document.write("<br>" + b);
+                }
+           
+        }
+}
+
+// Viết hàm tính tiền đi taxi từ số km cho trước: 
+function tinhTienTaxi(sokm) 
+{
+var sokm, tongtien;
+tongtien = 0;
+if (sokm <= 1) 
+	{
+    	tongtien = sokm * 15000;
+    }
+if (sokm > 1 && sokm <= 5)
+	{
+    	tongtien = 15000 + (sokm - 1) * 13500;
+    }
+if (sokm > 5)
+	{
+    	tongtien  = 15000 + 4*15000 + (sokm - 5)*11000;
+    }
+ if (sokm > 120)
+	{
+    	tongtien  = (15000 + 4*15000 + (sokm - 5)*11000)*0.9;
+    }
+document.write ("<br> Tổng tiền đi taxi cần trả là: " + tongtien);
+}
+/* Viết hàm xếp loại các học sinh (theo điểm trung bình) với điểm toán, lý, hóa cho trước,
+biết:
+ xuất sắc: đtb ≥ 9.0
+ giỏi: 9.0 > đtb ≥ 8.0
+ khá: 8.0 > đtb ≥ 6.5
+ trung bình: 6.5 > đtb ≥ 5.0
+ yếu: 5.0 > đtb ≥ 3.5
+ kém: 3.5 > đtb */
+function tinhDTB (a,b,c)
+{
+	var a,b,c;
+    var dtb = (a + b + c)/3;
+    if (dtb >= 9) 
+    	{
+        	document.write("<br> Bạn là học sinh xếp loại: Xuất sắc");
+        } 
+     if (dtb >= 8 && dtb < 9)
+        {
+        	document.write("<br> Bạn là học sinh xếp loại: Giỏi");
+        }
+     if (dtb < 8 && dtb >= 6.5) 
+     {
+     	document.write("<br>Bạn là học sinh xếp loại: Khá");
+     } 
+     if (dtb < 6.5 && dtb >= 5)
+     {
+     	document.write("<br> Bạn là học sinh xếp loại: Trung Bình");
+     }
+     if (dtb < 5 && dtb >= 3.5)
+     {
+     	document.write("<br> Bạn là học sinh xếp loại: Yếu");
+     } 
+     if (dtb < 3.5 )
+     {
+     	document.write("<br> Bạn là học sinh xếp loại: Kém");
+     }
+    
+}
+
+/* Bài 4. Viết hàm kiểm tra ngày (gồm 3 thành phần là ngày, tháng, năm) cho trước có phải là
+một ngày hợp lệ.
+Gợi ý: Một ngày được gọi là hợp lệ (có thật) khi:
+ Năm là số dương (lớn hơn 0).
+ Tháng từ 1 đến 12.
+ Ngày từ 1 đến số ngày tối đa của tháng đó. */
+function kiemtraNgay(ngay,thang,nam) 
+{
+	var ngay, thang, nam;
+    if (nam > 0) 
+    	{
+        	document.write("<br> Năm hợp lệ");
+        } else
+        {
+        	document.write("<br> Năm không hợp lệ");
+        }
+    if (thang >= 1 && thang <= 12)
+    	{
+        	document.write("<br> Tháng hợp lệ");
+        } else
+        {
+        	document.write("<br> Tháng không hợp lệ");
+        }
+    switch (thang)
+    	{
+        	case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+            	{
+                	if (ngay == 31)
+                    	{
+                        	document.write ("<br> Ngày hợp lệ");
+                        } else 
+                        {
+                        	document.write ("<br> Ngày không hợp lệ, tháng " + thang + " có 31 ngày");
+                        }                  
+                    break;
+                }
+            case 4:
+            case 6:
+            case 9:
+            case 11: 
+            	{
+                	if (ngay == 30)
+                    	{
+                         	document.write ("<br> Ngày hợp lệ");
+                        } else 
+                        {
+                        	document.write ("<br> Ngày không hợp lệ, tháng " + thang + " có 30 ngày");
+                        }
+                   
+                    break;
+                }
+            case 2:
+            	{
+                	if (ngay == 28 || ngay == 29) 
+                    	{
+                        	document.write ("<br> Ngày hợp lệ");
+                        } else 
+                        {
+                        	document.write ("<br> Tháng 2 chỉ có 28 hoặc 29 ngày");
+                        }
+                }    
+            default:
+            	document.write("<br> Tháng hoặc năm không hợp lệ!");
+            break;
+        }
+      return 0;
+}
+
+/*Viết hàm cho biết ngày hôm trước của một ngày cho trước.
+Gợi ý: Thứ tự thực hiện như sau:
+ Ngày hôm trước chính ngày giảm 1 đơn vị.
+o Nếu giảm ngày dẫn đến ngày không hợp lệ (bằng 0) thì ngày hôm trước chính
+là ngày cuối cùng của tháng trước. Vậy giảm tháng 1 đơn vị.
+ Nếu giảm tháng dẫn đến tháng không hợp lệ (bằng 0) thì ngày hôm trước
+chính là ngày cuối cùng của năm trước. Vậy tháng là 12 và giảm năm 1
+đơn vị.
+o Khi đã xác định được tháng và năm cụ thể thì ngày chính là số ngày tối đa của
+tháng thuộc năm đó.*/
+
+function tinhNgay(d,m,y) 
+{
+	var d,m,y;
+    if (y > 0)
+    {
+    	   if (m >= 1 && m <= 12)
+    	{
+        	document.write("<br> Tháng hợp lệ");
+        } else
+        {
+        	document.write("<br> Tháng không hợp lệ");
+        }
+    }
+    switch (m)
+    	{
+        	case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+            	{
+                	d = 31;
+                }
+            case 4:
+            case 6:
+            case 9:
+            case 11: 
+            	{
+                	d = 30;
+                }
+            case 2:
+            	{
+                	if ((y % 4 == 0 && y % 100 != 0) == true)
+                    	{
+                        	d = 29;
+                        } else
+                        {
+                        	d = 28;
+                        }
+                }
+           break;
+        }
+        d--;
+        if (d == 0) 
+        	{
+            	m--;
+            		if (m == 0) 
+                    	{
+                        	y--;
+                        }    
+            }
+document.write("<br> Ngày trước là: " + d + " / " + m + " / " + y);    
+}
+
+
+sapxep();
+document.write ("<br> Số nhỏ nhất là:" + timMin(arr));
+doiChu();
+tinhTienTaxi(5);
+tinhDTB (30,2,9);
+kiemtraNgay(30,9,2020); 
+tinhNgay(20,12,2019);
+
+</script>
+
