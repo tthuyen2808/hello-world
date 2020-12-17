@@ -1,3 +1,2 @@
 # hello-world
-Test tạo bảng git hub
-Tạo xong nhánh 
+Hello world new project template.

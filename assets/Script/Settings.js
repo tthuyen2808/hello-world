@@ -1,0 +1,26 @@
+module.exports = {
+    mainColors : [
+        new cc.Color(231, 27, 6), 
+        new cc.Color(255, 71, 74), 
+        new cc.Color(65, 163, 91), 
+        new cc.Color(168, 73, 118), 
+        new cc.Color(113, 0, 0),
+        new cc.Color(255, 87, 51), 
+        new cc.Color(182, 91, 46), 
+        new cc.Color(231, 27, 6) ,
+        new cc.Color(77, 187, 166),
+        new cc.Color(43, 51, 92),
+        new cc.Color(255, 157, 0),
+        new cc.Color(132,112,255),
+        new cc.Color(65,105,225),
+       // new cc.Color(0,178,238),
+        new cc.Color(255,0,0),
+        new cc.Color(255,0,0),
+      //  new cc.Color(0,0,255),
+        //new cc.Color(0,0,0),
+       // new cc.Color(255,255,255),
+        new cc.Color(0,255,0),
+        new cc.Color(255,255,0),
+
+    ],
+   };

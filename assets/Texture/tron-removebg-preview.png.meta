@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "5f698779-606b-4125-a14f-14957c4b2385",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 43,
+  "height": 44,
+  "platformSettings": {},
+  "subMetas": {
+    "tron-removebg-preview": {
+      "ver": "1.0.4",
+      "uuid": "f4556d26-2cee-4e99-b4ad-da31c78c84e5",
+      "rawTextureUuid": "5f698779-606b-4125-a14f-14957c4b2385",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 0.5,
+      "trimX": 6,
+      "trimY": 6,
+      "width": 30,
+      "height": 31,
+      "rawWidth": 43,
+      "rawHeight": 44,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
