@@ -4,7 +4,11 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-
+const leftPadding = 20;
+const boardSize = 600;
+const cellPading = 1;
+const soHang = 20;
+const doRong = boardSize / soHang;
 cc.Class({
     extends: cc.Component,
 
@@ -24,27 +28,77 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        caroArray:[]
+        caroArray:[],
+        drawNode: cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
 
      onLoad () {
+        this.drawItem(20);
         this.caroArray = [
-            [0,0,0,0,0, 2,2,0,1,1],
-            [0,0,0,0,0, 0,0,0,0,0],
-            [0,0,0,0,0, 2,2,2,2,2],
-            [2,0,0,0,0, 0,0,0,0,0],
-            [2,0,0,0,1, 0,0,0,0,0],
-            [0,0,0,1,0, 0,0,0,0,0],
-            [2,0,1,0,0, 0,0,0,0,0],
-            [0,0,0,0,0, 0,0,0,0,0],
-            [0,0,0,0,0, 0,0,0,0,0],
-            [0,0,0,0,0, 0,0,0,0,0],
-            ];
-            this.checkAll();
-          // this.check5Square(0,5,1);
-     },
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0]
+        ];
+        var self = this;
+        this.drawNode.on(cc.Node.EventType.TOUCH_START, function (event) {
+            var x = event.getLocationX();
+            var y = event.getLocationY();
+            var position = self.drawNode.convertToNodeSpaceAR(cc.v2(x, y));
+            var deltaX = Math.round(position.x - (position.x % doRong) + doRong/2);
+            var deltaY = Math.round(position.y - (position.y % doRong) + doRong/2);
+            var vitri = self.tinhHangCot(deltaX,deltaY);
+            console.log("vitri" + vitri.hang + "," + vitri.cot);
+
+        });
+        this.drawNode.on(cc.Node.EventType.TOUCH_END, function (event) {
+        });
+    },
+
+     drawItem(soHang) {
+        var g = this.drawNode.getComponent(cc.Graphics);
+        g.lineWidth = 1;
+        g.strokeColor.fromHEX('#000000');
+        for (var hang = 0; hang < soHang; hang++) {
+            for (var cot = 0; cot < soHang ; cot++) {
+                g.roundRect(leftPadding + hang * doRong, leftPadding + cellPading + doRong * cot, doRong - cellPading * 2, doRong - cellPading * 2, 0);
+            }
+        }
+        g.fill();
+        for (var x = 0; x < soHang; x++) {
+            for (var y = 0; y < soHang; y++) {
+                g.strokeColor.fromHEX('#000000');
+                g.roundRect(leftPadding + cellPading + x * doRong, leftPadding + cellPading + doRong * y, doRong - cellPading * 2, doRong - cellPading * 2, 0);
+                g.stroke();
+            }
+        }   
+},
+
+    tinhHangCot(x, y) {
+        var hang = Math.floor((x - leftPadding) / doRong);
+        var cot = Math.floor((y - leftPadding - cellPading) / doRong);
+        var vitri = new Object();
+            
+    },
+
      check5Square(startRow, startColumn, value) {
         var count = 0;
         // check hàng Chéo từ trên xuống
