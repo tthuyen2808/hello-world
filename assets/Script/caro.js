@@ -32,6 +32,7 @@ cc.Class({
         drawNode: cc.Node,
         user: 0,
         index: -1,
+        label: cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -42,28 +43,56 @@ cc.Class({
         this.user = 0;
 
         this.array = [
-            [{column: 0, row: 0, isDraw: false, user: "" },{ column: 0, row: 1, isDraw: false, user: "" },{ column: 0, row: 2, isDraw: false, user: "" },{ column: 0, row: 3, isDraw: false, user: "" }, { column: 0, row: 4, isDraw: false, user: "" }],
-            [{column: 1, row: 0, isDraw: false, user: "" },{column: 1, row: 1, isDraw: false, user: "" },{ column: 1,row: 2, isDraw: false, user: "" },{ column: 1,row: 3, isDraw: false, user: "" }, { column: 1,row: 4, isDraw: false, user: "" }],
-            [{ column: 2,row: 0, isDraw: false, user: "" },{ column: 2,row: 1, isDraw: false, user: "" },{ column: 2,row: 2, isDraw: false, user: "" },{ column: 2,row: 3, isDraw: false, user: "" }, { column: 2,row: 4, isDraw: false, user: "" }],
-            [{ column: 3, row: 0, isDraw: false, user: "" },{ column: 3,row: 1, isDraw: false, user: "" },{ column: 3,row: 2, isDraw: false, user: "" },{ column: 3,row: 3, isDraw: false, user: "" }, { column: 3,row: 4, isDraw: false, user: "" }],
-            [{ column: 4, row: 0, isDraw: false, user: "" },{ column: 4,row: 1, isDraw: false, user: "" },{ column: 4,row: 2, isDraw: false, user: "" },{ column: 4,row: 3, isDraw: false, user: "" }, { column: 4,row: 4, isDraw: false, user: "" }],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+            [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
         ];
         this.drawNode.on(cc.Node.EventType.TOUCH_START, function (event) {
             var x = event.getLocationX();
             var y = event.getLocationY();
             var position = self.drawNode.convertToNodeSpaceAR(cc.v2(x, y));
-            var vitri = self.tinhHangCot(position.x, position.y);
+            var deltaX = Math.round(position.x - (position.x % doRong) + doRong/2);
+            var deltaY = Math.round(position.y - (position.y % doRong) + doRong/2);
+            var label = cc.instantiate(self.label);
+          //  label.setPosition(position.x,position.y);
+            console.log("label");
+            label.parent = self.drawNode;
+            label.setPosition(deltaX,deltaY);
+                    /*    var vitri = self.tinhHangCot(position.x, position.y);
             for (var i = 0; i < self.array.length; i++) {
                 if(vitri.cot == self.array[i].column && vitri.hang == self.array[i].row) {
                     self.index = i;
                     self.DaChon(position.x,position.y);
                     self.array[i].isDraw = true;
                 }
-            }
+            } */
         });
         this.drawNode.on(cc.Node.EventType.TOUCH_END, function (event) {
             self.user++;
         });
+    },
+    addLabel(x,y) {
+        var label = cc.instantiate(this.label);
+        label.parent = this.drawNode;
+        label = label.node.setPosition(x,y);
+        console.log("addLabel");
     },
     DaChon(x,y) {
         if(this.user % 2 == 0) {
