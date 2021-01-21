@@ -29,7 +29,10 @@ cc.Class({
         //     }
         // },
         caroArray:[],
-        drawNode: cc.Node
+        drawNode: cc.Node,
+        user: -1,
+        labelX: cc.Node,
+        labelO: cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -66,12 +69,17 @@ cc.Class({
             var deltaX = Math.round(position.x - (position.x % doRong) + doRong/2);
             var deltaY = Math.round(position.y - (position.y % doRong) + doRong/2);
             var vitri = self.tinhHangCot(deltaX,deltaY);
-            console.log("vitri" + vitri.hang + "," + vitri.cot);
-
+            if(self.user % 2 == 0) {
+                self.caroArray[vitri.hang][vitri.cot] = "1";
+            } else {
+                self.caroArray[vitri.hang][vitri.cot] = "2";
+            }
         });
         this.drawNode.on(cc.Node.EventType.TOUCH_END, function (event) {
+            self.user = self.user + 1;
         });
     },
+
 
      drawItem(soHang) {
         var g = this.drawNode.getComponent(cc.Graphics);
@@ -92,11 +100,27 @@ cc.Class({
         }   
 },
 
+addLabel(x,y) {
+   
+    if(this.user % 2 == 0) {
+        var labelX = cc.instantiate(this.labelX);
+        labelX.parent = this.drawNode;
+        labelX.setPosition(x, y);
+    } else {
+        var labelO = cc.instantiate(this.labelO);
+        labelO.parent = this.drawNode;
+        labelO.setPosition(x, y);
+    }
+},
+
     tinhHangCot(x, y) {
-        var hang = Math.floor((x - leftPadding) / doRong);
-        var cot = Math.floor((y - leftPadding - cellPading) / doRong);
+        var cot = Math.floor((x - leftPadding) / doRong);
+        var hang = Math.floor((y - leftPadding - cellPading) / doRong);
         var vitri = new Object();
-            
+        var len = this.caroArray.length;
+        vitri.hang = len - 1 - hang;
+        vitri.cot = cot;
+        return vitri;
     },
 
      check5Square(startRow, startColumn, value) {
