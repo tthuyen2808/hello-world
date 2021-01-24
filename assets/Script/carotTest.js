@@ -7,7 +7,7 @@
 const leftPadding = 20;
 const boardSize = 600;
 const cellPading = 0;
-const soHang = 10;
+const soHang = 20;
 const doRong = boardSize / soHang;
 cc.Class({
     extends: cc.Component,
@@ -32,13 +32,15 @@ cc.Class({
         drawNode: cc.Node,
         user: -1,
         labelX: cc.Node,
-        labelO: cc.Node
+        labelO: cc.Node,
+        noticeLabel: cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
         this.drawItem(soHang);
+        this.user = 0;
         this.caroArray = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -72,19 +74,20 @@ cc.Class({
             var midPointX = doRong * hang + 1 / 2 * doRong;
             var midPointY = doRong * cot + 1 / 2 * doRong;
             console.log(midPointX + "-" + midPointY);
-            self.drawCycle(midPointX,midPointY);
-            /*var deltaX = Math.round(position.x - (position.x % doRong) + doRong/2);
-            var deltaY = Math.round(position.y - (position.y % doRong) + doRong/2);
-            var vitri = self.tinhHangCot(deltaX,deltaY);
-            console.log("hang: " + vitri.hang + "- cot: " + vitri.cot);
-            if(self.user % 2 == 0) {
+            //     self.drawCycle(midPointX,midPointY);
+            var vitri = self.tinhHangCot(midPointX, midPointY);
+            if (self.user % 2 == 0) {
                 self.caroArray[vitri.hang][vitri.cot] = "1";
+                console.log("value: " + self.caroArray[vitri.hang][vitri.cot]);
             } else {
                 self.caroArray[vitri.hang][vitri.cot] = "2";
-            }*/
+                console.log("value: " + self.caroArray[vitri.hang][vitri.cot]);
+            }
+            self.addLabel(midPointX, midPointY);
+            self.checkAll();
         });
         this.drawNode.on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.user = self.user + 1;
+            self.user++;
         });
     },
 
@@ -144,12 +147,13 @@ cc.Class({
     },
 
     tinhHangCot(x, y) {
-        var cot = Math.floor((x - leftPadding) / doRong);
-        var hang = Math.floor((y - leftPadding - cellPading) / doRong);
+        var cot = Math.floor((x)/ doRong);
+        var hang = Math.floor((y)/ doRong);
         var vitri = new Object();
         var len = this.caroArray.length;
-        vitri.hang = len - 1 - hang;
+        vitri.hang = len - hang - 1;
         vitri.cot = cot;
+        console.log("cot: " + vitri.cot + ", hang: " + vitri.hang);
         return vitri;
     },
 
@@ -228,15 +232,16 @@ cc.Class({
                 var result1 = this.check5Square(i, j, 1);
                 if (result1 != null) {
                     console.log("1 win");
+                    this.noticeLabel.string = "X win";
                     return;
                 } else {
                     var result2 = this.check5Square(i, j, 2);
                     if (result2 != null) {
                         console.log("2 win");
+                        this.noticeLabel.string = "O win";
                         return;
                     }
                 }
-
             }
         }
         console.log("chua win");
